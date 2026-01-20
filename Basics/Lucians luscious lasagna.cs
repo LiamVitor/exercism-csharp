@@ -3,8 +3,7 @@
     de valores e operações básicas em C#, simulando o tempo de preparo 
     de uma lasanha. 
 
-    Conceitos nessa questão:
-    -Classes
+    Conceitos desta questão:
     -Métodos
     -Tipos primitivos (int, bool, etc)
     -Retorno de valores
@@ -16,8 +15,8 @@ class Lasagna
     public int OvenTime = 40;   // Tempo estimado de forno
 
     public int TimePrepare = 2; // Tempo em que cada camada é preparada 
-    
-    //Método que retorna a quantidade estimada de forno 
+
+    //Método que retorna o tempo estimado de forno 
     public int ExpectedMinutesInOven() => OvenTime;
 
     /*
@@ -25,36 +24,42 @@ class Lasagna
         retorna o tempo que falta para ficar pronta 
     */
     public int RemainingMinutesInOven(int Time) => OvenTime - Time;
-    
+
     /*
         Recebe a quantidade de camada que a lasanha possui e 
-        retorna o tempo para prepara-la
+        retorna o tempo para prepará-la
     */
-    public int PreparationTimeInMinutes(int LayersNumber){
+    public int PreparationTimeInMinutes(int LayersNumber)
+    {
         return TimePrepare * LayersNumber;
     }
 
-    //Metodo que calcula o tempo total com o preparo e tempo de forno da lasanha
-    public int ElapsedTimeInMinutes(int LayersNumber, int Time){
+    //Método que calcula o tempo total com o preparo e tempo de forno da lasanha
+    public int ElapsedTimeInMinutes(int LayersNumber, int Time)
+    {
         return PreparationTimeInMinutes(LayersNumber) + Time;
     }
 }
 
 /* 
-    Ponto interessante que aprendi respondendo essa questão é o uso
-    do operador da seta de lambda "=>"
-    esse operador substitui a definição do escopo da função {} e do 
+    Um ponto interessante que aprendi respondendo esta questão é o uso
+    do operador da seta lambda "=>"
+    esse operador substitui a definição do escopo da função ({}) e do 
     return 
-    Mas obviamente isso não é aplicavel o tempo todo, tem modo de usar
-    sendo eles:
+    Mas, obviamente, isso não é aplicável o tempo todo, possui modos corretos 
+    de usar, sendo eles:
+
         -O método tem apenas uma linha
         -Ele só retorna um valor ou uma pequena expressão
         -Não precisa de lógica complexa (if, loops, etc.)
-    Onde pode ser usado 
+
+    Onde pode ser usado?
+
         -Propriedades
         -Construtores
         -Getters
         -Overrides simples
         -Operadores
-    é algo que acho totalmente recomendado, deixa o codigo mais limpo e bonito 
+
+    é algo que considero totalmente recomendado, deixa o codigo mais limpo e legível. 
 */
