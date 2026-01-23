@@ -1,14 +1,14 @@
 /*
     O exercício tem como objetivo praticar o uso de estruturas condicionais (if), 
-    conversao de tipos (Casting) e operações com valores numéricos inteiros e 
-    ponto flutuante . O problema simula a analise da produção de uma linha de 
-    montagem de automoveis,levando em consideração a velocidade de operação e a 
+    conversão de tipos (casting) e operações com valores numéricos inteiros e 
+    ponto flutuante. O problema simula a análise da produção de uma linha de 
+    montagem de automóveis, levando em consideração a velocidade de operação e a 
     taxa de sucesso em cada nível.
     
     Conceitos nessa questão:
-    - Estrutura Condicionais 
+    - Estrutura condicionais 
     - Conversão de tipos
-    - Variaveis Inteiras, Float e Double
+    - Variáveis inteiras, float e double
 */
 static class AssemblyLine
 {
@@ -24,21 +24,21 @@ static class AssemblyLine
         return 0;
     }
 
-    // Calcula a taxa de produção por hora levando em consideraçao a velocidade e a chance de sucesso
+    // Calcula a taxa de produção por hora levando em consideração a velocidade e a chance de sucesso
     public static double ProductionRatePerHour(int speed) => (CarsPerHour * speed) * SuccessRate(speed);
 
-    // Retorna a quantidade de carros produzido por minuto em uma hora
+    // Retorna a quantidade de carros produzidos por minuto em uma hora
     public static int WorkingItemsPerMinute(int speed) => (int)ProductionRatePerHour(speed) / 60;
 }
 
 /*
-    Nessa questão é nos apresentado algo muito importante para nos programadores
-    em C# que justamente a conversão de tipos, afinal a depender do programa 
+    Nesta questão é nos apresentado algo muito importante para nós, programadores
+    em C#, que é justamente a conversão de tipos, afinal a depender do programa 
     iremos trabalhar com diversos tipos de dados o tempo todo.
-    Nos temos 2 tipos principais de conversão de tipos: 
+    Nós temos 2 tipos principais de conversão de tipos:
 
-    - implicito:
-        Ocorre quando um valor de um tipo menor é atribuido a um tipo maior,
+    - implícito:
+        Ocorre quando um valor de um tipo menor é atribuído a um tipo maior,
         sem risco de perda de informação. Nesse caso, o próprio C# realiza
         a conversão automaticamente. 
         
@@ -46,16 +46,16 @@ static class AssemblyLine
             double numeroDouble = numeroInt;
             Console.WriteLine(numeroDouble); // saida:100 
 
-    - explicito:
+    - explicíto:
         Ocorre quando um valor de um tipo maior é convertido para um tipo menor.
         Como pode haver perda de informação, essa conversão exige uma autorização
-        explicita do programador.
+        explicíta do programador.
 
             double numeroDouble = 9.69;
             int numeroInt = (int)numeroDouble;
             Console.WriteLine(numeroInt); //saida:9;
 
-    Cada tipo de dado ocupa um espaço diferente na memoria, o que explica a
+    Cada tipo de dado ocupa um espaço diferente na memória, o que explica a
     necessidade dessas regras. Alguns exemplos de tamanhos em C#:
 
     - int -> 4 bytes 
@@ -66,5 +66,5 @@ static class AssemblyLine
     - char -> 2 bytes
     - bool -> 1 byte
 
-    Estes são so alguns de muitos tipos que C# possue.
+    Estes são so alguns de muitos tipos que C# possui.
 */
