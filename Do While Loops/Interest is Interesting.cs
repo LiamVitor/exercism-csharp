@@ -1,13 +1,13 @@
 /*
-    Esse exercicio tem como finalidade, a prática de estruturas de repetição 
+    Este exercício tem como finalidade a prática de estruturas de repetição 
     (do-while) e o reforço do uso de operações com valores numéricos de ponto 
-    flutuante junto com a conversão de tipos. O objetivo é simular o 
-    funcionamento básico de uma conta poupança bancária
+    flutuante, juntamente com a conversão de tipos. O objetivo é simular o 
+    funcionamento básico de uma conta poupança bancária.
 
     Conceitos desta questão:
     - Estrutura de repetição(do-while)
-    - Variaveis float, double e decimal
-    - Convesão de tipos
+    - Variáveis float, double e decimal
+    - Conversão de tipos
 */
 static class SavingsAccount
 {
@@ -29,13 +29,13 @@ static class SavingsAccount
         else return 3.213f;
     }
 
-    // Calcula o juros com base no saldo
+    // Calcula os juros com base no saldo
     public static decimal Interest(decimal balance) => balance * ((decimal)InterestRate(balance) / 100);
 
-    // Soma o redimento do juros ao saldo original anualmente  
+    // Soma o redimento dos juros ao saldo original anualmente  
     public static decimal AnnualBalanceUpdate(decimal balance) => balance + Interest(balance);
 
-    // Define o numero minimo de anos para alcancar o valor desejado com base no saldo
+    // Define o número mínimo de anos para alcançar o valor desejado com base no saldo
     public static int YearsBeforeDesiredBalance(decimal balance, decimal targetBalance)
     {
         int Count = 0;
@@ -59,7 +59,7 @@ static class SavingsAccount
     que um cálculo inicial precisa ser realizado, como a atualização anual
     de um saldo bancário.
 
-    Além do do-while a linguagem C# possue outras três estruturas de
+    Além do do-while, a linguagem C# possue outras três estruturas de
     repetição, cada uma indicada para diferentes cenários:
 
     - while: 
