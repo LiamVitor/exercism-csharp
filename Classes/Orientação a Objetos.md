@@ -1,150 +1,356 @@
-# Inicialização de Classes em C#
+# Classes em C# – Conceitos Fundamentais e Estrutura
 
-Este material tem como objetivo apresentar o conceito de inicialização de classes em C#, 
-explicando como objetos são criados e preparados para uso dentro do paradigma de 
-Programação Orientada a Objetos.
+Este material apresenta, de forma didática e organizada, os conceitos básicos 
+de **Orientação a Objetos (OO)** em **C#**, abordando:
 
-## O que é uma classe
+* O que é uma classe
+* Como uma classe é estruturada
+* Suas responsabilidades
+* Como objetos são criados e utilizados
+* Boas práticas no uso de classes
 
-Em C#, uma **classe** pode ser entendida como um molde ou modelo que define as 
-características e os comportamentos de um objeto.
+## 1. O que é uma Classe?
 
-    class Car
+Uma **classe** é um modelo (ou molde) que define:
+
+* **Estado** → quais dados um objeto possui
+* **Comportamento** → quais ações ele pode executar
+
+#### **A classe é um Molde?**
+
+Quando pensamos em um **carro**, não pensamos em um automóvel específico,
+mas sim no **conceito** de carro.
+
+**O que ele tem?**  
+Modelo, ano, quilometragem  
+
+**O que ele faz?**  
+Dá partida, acelera, freia  
+
+Uma classe representa exatamente isso:  
+ela define **o que um objeto é** e **o que ele pode fazer**, mas não é o objeto 
+em si.
+
+Em C#, uma classe é declarada com a palavra-chave `class`.
+
+```csharp
+class Car
+{
+    public string _modelo;
+    public int _ano;
+
+    public void Start()
     {
-        public string Model;
-        public int Year;
-
-        public void Start()
-        {
-            Console.WriteLine("O carro está ligado.");
-        }
+        Console.WriteLine("O carro está ligado.");
     }
+}
+```
+
+### Componentes de uma Classe
+
 Uma classe pode conter:
-- Campos e propriedades, que representam os dados
-- Métodos, que representam os comportamentos
 
-A classe por si só não executa ações; ela apenas descreve como os objetos devem ser.
+* **Campos** → São as variaveis internas da classe, onde armazenamos informações 
+sobre o estado do objeto.
 
-## O que significa inicializar uma classe
+    ```csharp
+    public string nome
+    private string _modelo;
+    private int _ano;
+    ```
 
-Inicializar uma classe significa **criar um objeto a partir dessa classe**.  
-Esse processo também é chamado de **instanciação**.
+* **Propriedades** → controlam o acesso aos dados, elas que vão permitir acessar
+e modificar os campos existentes na classe.
 
-    Car myCar = new Car();
+    ```csharp 
+    public string nome {get; set;}
+    ```
+    Ou de forma mais explicita:
 
-Durante a inicialização:
-- Um espaço de memória é alocado
-- Os campos recebem valores iniciais
-- O construtor da classe é executado
-
-Após esse processo, o objeto está pronto para ser utilizado no código.
-
-## Instanciando objetos com `new`
-
-Em C#, objetos são criados utilizando a palavra-chave `new`.
-
-    Car car1 = new Car();
-    Car car2 = new Car();
-
-    car1.Model = "Civic";
-    car2.Model = "Corolla";
-
-    Console.WriteLine(car1.Model); // Civic
-    Console.WriteLine(car2.Model); // Corolla
-
-Cada vez que uma classe é instanciada:
-- Um novo objeto independente é criado
-- Cada objeto possui seu próprio estado
-
-Mesmo que dois objetos sejam criados a partir da mesma classe, eles não compartilham
-seus dados automaticamente.
-
-## Construtores
-
-O **construtor** é um método especial responsável por inicializar o objeto.
-
-    class Player
-    {
-        public int Health;
-
-        public Player()
+    ```csharp 
+        public string nome 
         {
-            Health = 100;
+            get{return nome;}
+            set{nome = value;}
         }
-    }
-    Player player = new Player();
-    Console.WriteLine(player.Health); // 100
+    ```
 
+* **Construtores** → inicializam o objeto preparando ele para uso, definindo 
+valores iniciais ppara seu atributos e alocando os recursos necessarios.
 
-Características do construtor:
-- Possui o mesmo nome da classe
-- Não possui tipo de retorno
-- É executado automaticamente no momento da instanciação
----
-    class Player
+    ```csharp
+    public Car(string modelo, int ano)
     {
-        public string Name;
-        public int Health;
-
-        public Player(string name)
-        {
-            Name = name;
-            Health = 100;
-        }
+        _modelo = modelo;
+        _ano = ano;
     }
+    ```
 
-    Player player = new Player("Arthur");
-    Console.WriteLine(player.Name);   // Arthur
-    Console.WriteLine(player.Health); // 100
+* **Métodos** → definem ações e comportamentos de uma classe.
 
-
-Uma classe pode ter:
-- Um construtor padrão (sem parâmetros)
-- Um ou mais construtores com parâmetros
-
-Construtores são utilizados para garantir que o objeto seja criado em um estado válido.
-
-## Inicialização de campos e propriedades
-Os campos e propriedades de uma classe podem ser inicializados de diferentes formas:
-
-- Valores padrão do C#  
-  - `int` inicia com `0`
-  - `bool` inicia com `false`
-  - `string` inicia com `null`
-
-- Inicialização direta no campo ou propriedade
-
-- Inicialização através do construtor
-
-A escolha da abordagem depende da regra de negócio e da necessidade de cada objeto.
-
-    class Example
+    ```csharp 
+    public void Ligar()
     {
-        public int Number;
-        public bool IsActive;
-        public string Text;
+        Console.Write("Vrummm");
     }
-    Example example = new Example();
+    ```
 
-    Console.WriteLine(example.Number);   // 0
-    Console.WriteLine(example.IsActive); // false
-    Console.WriteLine(example.Text);     // null
+* **Modificadores de acesso** → definem visibilidade (`public`, `private`, etc.)
+    
+    * **public** → acesso global, Pode ser acessado por qualquer classe, em 
+    qualquer projeto que referencie o assembly
+    * **private** → acesso restrito à própria classe 
+    * **protected** → acesso permitido à classe atual e às classes que herdam dela
+    Muito usado em cenários de herança para permitir extensão de comportamento 
+    sem expor tudo publicamente
+    * **internal** → acesso restrito ao mesmo assembly Classes ou membros 
+    internal não podem ser acessados por outros projetos, mesmo que referenciem
+    o assembly
+
+    > Assembly = o “pacote” final gerado quando você compila um projeto
+
+## 2. Classe vs Objeto
+
+* **Classe** → é o modelo, uma representação generalizada
+* **Objeto** → é a instância criada a partir da classe
+
+```csharp
+Car car1 = new Car();
+Car car2 = new Car();
+```
+
+Cada objeto:
+
+* Possui seu próprio espaço na memória
+* Mantém seu próprio estado
+* Funciona de forma independente
+
+```csharp
+car1.Model = "Civic";
+car2.Model = "Corolla";
+```
+
+Mesmo sendo da mesma classe, `car1` e `car2` são objetos diferentes.
 
 
-## Relação com Orientação a Objetos
+## 3. Estrutura Básica de uma Classe
 
-A inicialização de classes está diretamente ligada aos conceitos de orientação a objetos:
+Em um primeiro momento, para fins de aprendizado, uma classe pode ser apresentada de forma mais simples, utilizando campos públicos para representar seus dados
 
-- **Encapsulamento**: o objeto controla seu próprio estado
-- **Estado**: valores armazenados nos campos e propriedades
-- **Comportamento**: métodos que utilizam esse estado
+```csharp
+class Car
+{
+    public string modelo;
+    public int ano;
 
-Inicializar corretamente uma classe garante que o objeto esteja consistente e seguro
-para interagir com o restante do sistema.
+    public void Start()
+    {
+        Console.WriteLine($"{modelo} está ligado.");
+    }
+}
+```
 
-## Boas práticas
+Uma estrutura mais organizada utiliza **propriedades**, em aplicações reais, é 
+importante que se utilize propriedades no lugar de campos públicos::
 
-- Sempre inicializar objetos antes de utilizá-los
-- Utilizar construtores para definir valores obrigatórios
-- Evitar deixar objetos em estados inválidos
-- Manter a lógica de inicialização dentro da própria classe
+```csharp
+class Car
+{
+    public string modelo { get; set; }
+    public int ano { get; set; }
+
+    public void Start()
+    {
+        Console.WriteLine($"{modelo} está ligado.");
+    }
+}
+```
+
+Essa abordagem melhora o **encapsulamento**, pois permite controlar o acesso aos dados.
+
+### Por que usar propriedades?
+As propriedades funcionam como um ponto controlado de acesso aos dados da classe.
+Diferente de campos públicos, elas permitem que regras sejam aplicadas sem expor diretamente o estado interno do objeto.
+
+Internamente, uma propriedade possui:
+
+* get → responsável pela leitura do valor
+* set → responsável pela atribuição do valor
+
+Ou seja, o acesso aos dados passa por uma camada de controle        
+
+## 4. Inicialização e Instanciação
+
+Criar um objeto a partir de uma classe é chamado de **instanciação**.
+Esse processo ocorre quando utilizamos a palavra-chave `new`:
+
+```csharp
+Car myCar = new Car();
+```
+
+### O que acontece durante a instanciação?
+
+Ao instanciar um objeto:
+
+**1.** **Memória é alocada no heap.**  
+O runtime reserva espaço suficiente para armazenar todos os dados da classe.
+
+**2.** **Valores padrão são atribuídos aos campos e propriedades.**  
+Antes de qualquer código do construtor ser executado, o objeto já possui um estado inicial válido.
+
+**3.** **O construtor da classe é executado.**  
+É nesse ponto que o desenvolvedor pode sobrescrever os valores padrão e aplicar regras iniciais.
+
+### O que são valores padrão?
+
+Valores padrão são os valores iniciais automáticos que o C# atribui aos membros de uma classe quando um objeto é criado sem inicialização explícita.
+
+**Eles garantem que:**
+
+* nenhum campo contenha “lixo de memória”
+* o objeto sempre comece em um estado previsível
+
+### Valores padrão em C#
+
+|  Tipo                           |    Valor padrão   |
+|---------------------------------|-------------------|
+| `int`, `long`, `short`          | `0`               |
+| `float`, `double`, `decimal`    | `0` / `0.0`       |
+| `bool`                          | `false`           |
+| `char`                          | `'\0'` (nulo)     |
+| `string`                        | `null`            |
+| Tipos de referência (classes)   | `null`            |
+| `DateTime`                      | `01/01/0001`      |
+
+#### Exemplo prático
+
+Considere a classe abaixo:
+
+```csharp
+class Car
+{
+    public string modelo;
+    public int ano;
+    public bool estaLigado;
+}
+```
+
+Ao criar o objeto:
+
+```csharp
+Car car = new Car();
+```
+
+O estado inicial será:
+
+`modelo` → `null`
+
+`ano` → `0`
+
+`estaLigado` → `false`
+
+Mesmo sem atribuir valores manualmente, o objeto já está totalmente inicializado.
+
+## 5. Construtores
+
+O **construtor** garante que o objeto já nasça em um estado válido.
+
+### Construtor Padrão
+
+```csharp
+class Player
+{
+    public int Health;
+
+    public Player()
+    {
+        Health = 100;
+    }
+}
+```
+
+### Construtor com Parâmetros
+
+```csharp
+class Player
+{
+    public string Name { get; private set; }
+    public int Health { get; private set; }
+
+    public Player(string name)
+    {
+        Name = name;
+        Health = 100;
+    }
+}
+```
+
+### Uso
+
+```csharp
+Player player = new Player("Arthur");
+```
+
+**Vantagem:** evita que o objeto seja criado incompleto ou inválido.
+
+## 6. Exemplo Prático de Uso
+
+Simulação simples de um sistema de pedidos:
+
+```csharp
+class Order
+{
+    public string Product { get; }
+    public int Quantity { get; }
+
+    public Order(string product, int quantity)
+    {
+        Product = product;
+        Quantity = quantity;
+    }
+
+    public decimal CalculateTotal(decimal price)
+    {
+        return price * Quantity;
+    }
+}
+```
+
+### Uso
+
+```csharp
+Order order = new Order("Teclado", 2);
+decimal total = order.CalculateTotal(150);
+```
+
+A classe:
+
+* Armazena informações do pedido
+* Garante criação correta do objeto
+* Executa cálculos relacionados ao seu próprio contexto
+
+Isso demonstra boa organização orientada a objetos.
+
+## 7. Boas Práticas no Uso de Classes
+
+* Utilizar propriedades ao invés de campos públicos
+* Garantir estado válido via construtor
+* Aplicar encapsulamento
+* Usar nomes claros e semânticos
+* Manter responsabilidade única
+* Evitar classes "faz-tudo"
+
+## 8. Resumo Final
+
+Uma classe em C#:
+
+* É um modelo para criar objetos
+* Define estado e comportamento
+* Pode possuir construtores para garantir validade
+* Deve seguir princípios de Orientação a Objetos
+* Deve ter responsabilidade clara e bem definida
+
+Inicializar corretamente uma classe significa criar **objetos consistentes, previsíveis e seguros** para uso dentro do sistema.
+
+> Nota: Este conteúdo foi desenvolvido com suporte de ferramentas de IA como auxílio
+> à escrita e organização, com revisão e validação técnica humana.
